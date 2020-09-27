@@ -1,0 +1,75 @@
+{% extends "layouts/login_layout.html" %}
+{% block title %} Registro {% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block body %}
+<div class="register-photo">
+    <div class="form-container">
+        <div class="image-holder"
+            style="background: url('/static/assets/img/registration.jpg') center / cover no-repeat;">
+        </div>
+        <form method="post">
+            <h2 class="text-center">
+                <strong>Registro</strong>
+            </h2>
+            {% if alert %}
+            <div>
+                <strong><small class="text-danger">* Atención: {{ alert }}</small></strong>
+            </div>
+            {% endif %}
+            <div class="form-group">
+                <input class="form-control" type="email" name="email" placeholder="Email">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" name="username" placeholder="Usuario">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password"placeholder="Ingrese la contraseña">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="password" name="password2" placeholder="Repita la contraseña">
+            </div>
+            <div class="form-group">
+                <input class="form-control" type="text" name="city" placeholder="Ciudad">
+            </div>
+            <div class="form-group">
+                <script src='https://www.google.com/recaptcha/api.js'></script>
+
+
+                <style>
+                    #g-recaptcha-response {
+                        display: block !important;
+                        position: absolute;
+                        margin: -78px 0 0 0 !important;
+                        width: 302px !important;
+                        height: 76px !important;
+                        z-index: -999999;
+                        opacity: 0;
+                    }
+                </style>
+            </div>
+            <div class="form-group">
+                <div class="form-check">
+                    <label class="form-check-label">
+                        <input class="form-check-input" name="terms" type="checkbox" value="1">Acepto los términos de uso y las políticas de privacidad
+                    </label>
+                </div>
+            </div>
+            <div class="form-group">
+                <button class="btn btn-primary btn-block" type="submit">Registrarse</button>
+            </div>
+            <a class="text-center" href="{{url_for('index')}}" style="text-align: center;color: rgb(80,95,108);">¿Ya tienes cuenta? Inicia sesión</a>
+        </form>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        var $recaptcha = document.querySelector('#g-recaptcha-response');
+
+        if ($recaptcha) {
+            $recaptcha.setAttribute("required", "required");
+        }
+    };
+</script>
+{% endblock %}

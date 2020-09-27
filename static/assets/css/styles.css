@@ -1,0 +1,24 @@
+html,body {
+  background-color: rgb(210, 210, 210);
+  height: 100%;
+}
+
+.card {
+  margin-top: 10px;
+}
+
+.card-body > span {
+  font-size: 10px;
+  margin-right: 10px;
+}
+
+.card-body img {
+  width: 100%;
+  height: auto;
+}
+
+.btn {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+

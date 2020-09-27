@@ -1,0 +1,101 @@
+{% extends "layouts/dashboard_layout.html" %}
+{% block title %} Iniciar sesión {% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block body %}
+<div>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h4>Bienvenido</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h6>Selecciona tus tres categorías favoritas</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Drama</h4><img
+                                            src="../assets/img/150.png?h=4ab8ff224c94d01dbeb301ac5b2077db">
+                                        <div class="form-check"><input class="form-check-input" type="checkbox"
+                                                id="formCheck-1"><label class="form-check-label"
+                                                for="formCheck-1">Seleccionar categoría</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Románticas</h4><img
+                                            src="../assets/img/150.png?h=4ab8ff224c94d01dbeb301ac5b2077db">
+                                        <div class="form-check"><input class="form-check-input" type="checkbox"
+                                                id="formCheck-6"><label class="form-check-label"
+                                                for="formCheck-1">Seleccionar categoría</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Animación</h4><img
+                                            src="../assets/img/150.png?h=4ab8ff224c94d01dbeb301ac5b2077db">
+                                        <div class="form-check"><input class="form-check-input" type="checkbox"
+                                                id="formCheck-5"><label class="form-check-label"
+                                                for="formCheck-1">Seleccionar categoría</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Acción</h4><img
+                                            src="../assets/img/150.png?h=4ab8ff224c94d01dbeb301ac5b2077db">
+                                        <div class="form-check"><input class="form-check-input" type="checkbox"
+                                                id="formCheck-4"><label class="form-check-label"
+                                                for="formCheck-1">Seleccionar categoría</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Clásicas</h4><img
+                                            src="../assets/img/150.png?h=4ab8ff224c94d01dbeb301ac5b2077db">
+                                        <div class="form-check"><input class="form-check-input" type="checkbox"
+                                                id="formCheck-3"><label class="form-check-label"
+                                                for="formCheck-1">Seleccionar categoría</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-sm-4 col-md-4">
+                                <div class="card">
+                                    <div class="card-body">
+                                        <h4 class="card-title">Humor</h4><img
+                                            src="../assets/img/150.png?h=4ab8ff224c94d01dbeb301ac5b2077db">
+                                        <div class="form-check"><input class="form-check-input" type="checkbox"
+                                                id="formCheck-2"><label class="form-check-label"
+                                                for="formCheck-1">Seleccionar categoría</label></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col"><a class="btn btn-primary float-right btn_next" role="button"
+                                    href="recommendations.html">Continuar</a></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
