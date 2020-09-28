@@ -1,12 +1,24 @@
 # Recomendador de películas
 ## Dependencias Python
 - Flask
-    - pip install flask
+
+```terminal 
+pip install flask
+```
 - SQLAlchemy
-    - pip install sqlalchemy
+
+```terminal
+pip install sqlalchemy
+```
 - Flask-SQLAlchemy
-    - pip install flask-sqlalchemy
-    - pip install mysqlclient
+
+```terminal
+pip install flask-sqlalchemy
+````
+```terminal
+pip install mysqlclient
+```
+
 
 ## Manejador de base de datos
 - MySQL/MariaDB
@@ -28,3 +40,15 @@
     - `dashboard`: Almacena los archivos del dashboard, calificaciones y recomendaciones, mismos que son presentados al usuario accediendo a la ruta asignada a cada vista
     - `layouts`: Almacena los archivos de plantillas mediante los cuales se despliegan los otros ficheros de visualización contenidos en el directorio `templates`
     - `users`: Almacena los archivos de vista relacionados con los usuarios de este proyecto
+
+## Despliegue
+Una vez instaladas las dependencias es posible ejecutar este proyecto mediante el comando:
+
+```terminal 
+python main.py
+```
+
+## Autor
+Epsom Enrique Segura Jaramillo
+
+segurajaramilloepsom@gmail.com
