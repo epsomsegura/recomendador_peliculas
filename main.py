@@ -13,6 +13,7 @@ db.init_app(app)
 
 # CONTROLLERS
 from controllers.usersController import usersController as uC
+from controllers.genresController import genresController as gC
 from recommender.recomendador_categoria import recomendador_categoria as RC
 
 RC=RC()
@@ -70,7 +71,9 @@ def registro():
 def dashboard():
     if request.method=='GET':
         if(session.get('user') != None):
-            return render_template("dashboard/dashboard.html")
+            genres = gC.getAll(app)
+            print(genres['genres'])
+            return render_template("dashboard/dashboard.html",genres = genres['genres'])
         else:
             return redirect(url_for('index'))
     # elif request.method == 'POST':

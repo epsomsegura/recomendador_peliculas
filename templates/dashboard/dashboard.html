@@ -21,90 +21,29 @@
                             </div>
                         </div>
                         <div class="row">
+                            {% for g in genres %}
                             <div class="col-sm-4 col-md-4">
                                 <div class="card">
+                                    <div class="card-header bg-white">
+                                        <h4 class="card-title text-capitalize">{{ g.genre }}</h4>
+                                    </div>
                                     <div class="card-body">
-                                        <h4 class="card-title">Drama</h4>
-                                        <img src="../assets/img/150.png?h=4ab8ff224c94d01dbeb301ac5b2077db">
+                                        <div class="text-center" style="padding:20px;">
+                                            <i class="fas fa-list-ul" style="font-size: 80px;"></i>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-white text-left">
                                         <div class="form-check">
                                             <input class="form-check-input" type="checkbox" name="categoria"
-                                                value="drama" id="formCheck-1">
-                                            <label class="form-check-label" for="formCheck-1">Seleccionar
+                                                value="{{ g.genre }}" id="{{ g.genre }}">
+                                            <label class="form-check-label" for="{{ g.genre }}">Seleccionar
                                                 categoría</label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-sm-4 col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Románticas</h4>
-                                        <img src="../assets/img/150.png?h=4ab8ff224c94d01dbeb301ac5b2077db">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="categoria"
-                                                value="romance" id="formCheck-2">
-                                            <label class="form-check-label" for="formCheck-2">Seleccionar
-                                                categoría</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Animación</h4>
-                                        <img src="../assets/img/150.png?h=4ab8ff224c94d01dbeb301ac5b2077db">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="categoria"
-                                                value="animation" id="formCheck-3">
-                                            <label class="form-check-label" for="formCheck-3">Seleccionar
-                                                categoría</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Acción</h4>
-                                        <img src="../assets/img/150.png?h=4ab8ff224c94d01dbeb301ac5b2077db">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="categoria"
-                                                value="action" id="formCheck-4">
-                                            <label class="form-check-label" for="formCheck-4">Seleccionar
-                                                categoría</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Clásicas</h4>
-                                        <img src="../assets/img/150.png?h=4ab8ff224c94d01dbeb301ac5b2077db">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="categoria"
-                                                value="classic" id="formCheck-4">
-                                            <label class="form-check-label" for="formCheck-5">Seleccionar
-                                                categoría</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="col-sm-4 col-md-4">
-                                <div class="card">
-                                    <div class="card-body">
-                                        <h4 class="card-title">Humor</h4>
-                                        <img src="../assets/img/150.png?h=4ab8ff224c94d01dbeb301ac5b2077db">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" name="categoria"
-                                                value="comedy" id="formCheck-6">
-                                            <label class="form-check-label" for="formCheck-6">Seleccionar
-                                                categoría</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            {% endfor %}
+
                         </div>
                         <div class="row">
                             <div class="col">

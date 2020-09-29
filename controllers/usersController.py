@@ -1,6 +1,6 @@
 import bcrypt, json,logging
 from datetime import date, datetime, timedelta
-from sqlalchemy import exc
+from sqlalchemy import exc, inspect
 
 # Modelos
 from models.database import db

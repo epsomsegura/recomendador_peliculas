@@ -4,9 +4,10 @@ import numpy as np
 from os import path
 import pickle, json
 from ast import literal_eval
+import random
 
 
-# Clase recommender
+# Clase recomendador por categorias
 class recomendador_categoria:
     # Ruta al dataset
     df = pd.read_csv('src/movies_metadata.csv', low_memory=False, encoding='unicode_escape')
@@ -14,8 +15,8 @@ class recomendador_categoria:
 
     # Constructor
     def __init__(self):
-        if(path.exists('src/metadata_clear.csv')):
-            self.gen_df = pd.read_csv('src/metadata_clear.csv', low_memory=False, encoding='unicode_escape')
+        if(path.exists('src/metadata_categorias.csv')):
+            self.gen_df = pd.read_csv('src/metadata_categorias.csv', low_memory=False, encoding='unicode_escape')
         else:
             cols = self.df.columns
             self.df = self.df[['title', 'genres', 'release_date','runtime', 'vote_average', 'vote_count']]
@@ -41,7 +42,7 @@ class recomendador_categoria:
             s = self.df.apply(lambda x: pd.Series(x['genres']), axis=1).stack().reset_index(level=1, drop=True)
             s.name = 'genre'
             self.gen_df = self.df.drop('genres', axis=1).join(s)
-            self.gen_df.to_csv('src/metadata_clear.csv',index=False)
+            self.gen_df.to_csv('src/metadata_categorias.csv',index=False)
 
 
 
@@ -49,7 +50,6 @@ class recomendador_categoria:
     def obtener_recomendaciones(self, feature, params, percentile=0.8):
         feature = feature
         movies_list = pd.Series([],dtype=pd.StringDtype())
-        # gen_list = literal_eval(params)
         gen_list = params
         
         # Recorrer los géneros para la construcción la lista
@@ -63,9 +63,25 @@ class recomendador_categoria:
             
             # Calcular el score usando la forumal de IMDB
             q_movies['score'] = q_movies.apply(lambda x: (x['vote_count']/(x['vote_count']+m) * x['vote_average'])+ (m/(m+x['vote_count']) * C), axis=1)
-            q_movies = q_movies.sort_values('score', ascending=False)
-            q_movies = q_movies[1:21]
+            
+            # Aleatorios
+            rndm_count = int(random.uniform(1,40))
+            rndm=int(random.uniform(1,len(q_movies)))
+            start = 1 
+            end = 1
+            if((rndm+rndm_count) > len(q_movies)):
+                start = rndm - rndm_count
+                end = rndm
+            elif((rndm-rndm_count)<0):
+                start = rndm
+                end = rndm+rndm_count
+            else:
+                start = rndm
+                end = rndm+rndm_count
 
+            q_movies = q_movies[start:end]
+
+            # Peliculas
             movies_list = pd.concat([movies_list,q_movies])
         
         movies_list.drop(movies_list.columns[0], axis=1, inplace=True)
