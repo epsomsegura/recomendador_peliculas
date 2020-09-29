@@ -18,14 +18,13 @@ class usersController:
                 user_data = user_login[0]
                 if bcrypt.checkpw(str.encode(data['password']), str.encode(user_data.password)):
                     return {
-                        'response': 'OK',
+                        'response': "OK",
                         'session_data' : user_data.as_dict()
                     }
                 else:
                     return {'response':'PASSWORD'}
 
-        except exc as e:
-            return e
+        except Exception as e:
             return 'NO'
 
     

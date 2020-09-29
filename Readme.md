@@ -1,5 +1,17 @@
 # Recomendador de películas
 ## Dependencias Python
+- Pandas
+
+```terminal 
+pip install pandas
+```
+
+- Numpy
+
+```terminal 
+pip install numpy
+```
+
 - Flask
 
 ```terminal 
@@ -16,7 +28,7 @@ pip install sqlalchemy
 pip install flask-sqlalchemy
 ````
 ```terminal
-pip install mysqlclient
+pip install pymysql
 ```
 
 
@@ -40,6 +52,9 @@ pip install mysqlclient
     - `dashboard`: Almacena los archivos del dashboard, calificaciones y recomendaciones, mismos que son presentados al usuario accediendo a la ruta asignada a cada vista
     - `layouts`: Almacena los archivos de plantillas mediante los cuales se despliegan los otros ficheros de visualización contenidos en el directorio `templates`
     - `users`: Almacena los archivos de vista relacionados con los usuarios de este proyecto
+
+## Notas
+- Los ficheros CSV fueron modificados en las columnas `release_date` desde Microsoft Excel para asignar el año a cuatro dígitos en lugar de dos dígitos
 
 ## Despliegue
 Una vez instaladas las dependencias es posible ejecutar este proyecto mediante el comando:

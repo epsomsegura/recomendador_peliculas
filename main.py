@@ -1,7 +1,8 @@
 # DEPENDENCIES
-from flask import Flask, render_template, request, redirect, url_for, session
-from models.database import db
 import json
+from flask import Flask, render_template, request, Response, redirect, url_for, session, jsonify
+from ast import literal_eval
+from models.database import db
 
 app = Flask(__name__, static_url_path='/static')
 app.secret_key = b'@movies_2019$'
@@ -9,8 +10,12 @@ app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root@localhost/movies'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db.init_app(app)
 
+
 # CONTROLLERS
 from controllers.usersController import usersController as uC
+from recommender.recomendador_categoria import recomendador_categoria as RC
+
+RC=RC()
 
 # ROUTES
 # LOGIN
@@ -61,11 +66,20 @@ def registro():
 
 # DASHBOARD
 @app.route("/dashboard")
+@app.route("/categorias", methods=['POST','GET'])
 def dashboard():
-    if(session.get('user') != None):
-        return render_template("dashboard/dashboard.html")
-    else:
-        return redirect(url_for('index'))
+    if request.method=='GET':
+        if(session.get('user') != None):
+            return render_template("dashboard/dashboard.html")
+        else:
+            return redirect(url_for('index'))
+    # elif request.method == 'POST':
+        
+@app.route("/recomendaciones",methods=['POST','GET'])
+def recomendaciones():
+    if request.method=='POST':
+        data = RC.obtener_recomendaciones('genre',request.form.getlist('categoria'))
+        return render_template('dashboard/recommendations.html',result=data, categories=request.form.getlist('categoria'))
 
 if __name__ == "__main__":
     app.run(debug=True)
