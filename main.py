@@ -72,7 +72,6 @@ def dashboard():
     if request.method=='GET':
         if(session.get('user') != None):
             genres = gC.getAll(app)
-            print(genres['genres'])
             return render_template("dashboard/dashboard.html",genres = genres['genres'])
         else:
             return redirect(url_for('index'))

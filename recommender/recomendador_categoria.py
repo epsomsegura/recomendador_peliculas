@@ -51,11 +51,12 @@ class recomendador_categoria:
         feature = feature
         movies_list = pd.Series([],dtype=pd.StringDtype())
         gen_list = params
-        
+
         # Recorrer los géneros para la construcción la lista
         for i in gen_list:
             movies = self.gen_df.copy()
             movies = movies[(movies[feature] == i) ]
+            movies = movies.fillna(0)
 
             C = movies['vote_average'].mean()
             m = movies['vote_count'].quantile(percentile)
@@ -89,7 +90,7 @@ class recomendador_categoria:
         movies_list.sort_values('score',ascending=False)
         movies_list = movies_list.drop_duplicates(subset=['title'])
         
-        return movies_list.to_dict('records')
+        return movies_list.sort_values('score',ascending=False).to_dict('records')
 
     # Función de apoyo al tratamiento de fechas en el dataframe
     def fechas_int(self, x):
