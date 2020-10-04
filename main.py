@@ -14,9 +14,12 @@ db.init_app(app)
 # CONTROLLERS
 from controllers.usersController import usersController as uC
 from controllers.genresController import genresController as gC
-from recommender.recomendador_categoria import recomendador_categoria as RC
+from controllers.moviesController import moviesController as mC
+from controllers.recomendador_categoria import recomendador_categoria as rCat
+from controllers.recomendador_calificaciones import recomendador_calificaciones as rCal
 
-RC=RC()
+rCat=rCat()
+rCal=rCal()
 
 # ROUTES
 # LOGIN
@@ -66,22 +69,61 @@ def registro():
 
 
 # DASHBOARD
-@app.route("/dashboard")
-@app.route("/categorias", methods=['POST','GET'])
+@app.route("/dashboard", methods=["get"])
 def dashboard():
+    return render_template("dashboard/dashboard.html")
+
+
+
+# CATEGORIAS
+@app.route("/categorias", methods=['POST','GET'])
+def categorias():
     if request.method=='GET':
         if(session.get('user') != None):
             genres = gC.getAll(app)
-            return render_template("dashboard/dashboard.html",genres = genres['genres'])
+            return render_template("dashboard/categories.html",genres = genres['genres'])
         else:
             return redirect(url_for('index'))
     # elif request.method == 'POST':
+
+
+# CALIFICACIONES
+@app.route("/calificaciones", methods=["GET"])
+def calificaciones():
+    if request.method=='GET':
+        if(session.get('user') != None):
+            movies = mC.getAll(app)
+            # userInput = [
+            #         # {'title':'Breakfast Club, The', 'rating':5},
+            #         {'title':'Toy Story', 'rating':3.5},
+            #         {'title':'Jumanji', 'rating':2},
+            #         {'title':"Pulp Fiction", 'rating':5},
+            #         {'title':'Akira', 'rating':4.5}
+            #     ] 
+            return render_template("dashboard/rates.html", result=movies)
+        else:
+            return redirect(url_for('index'))
         
-@app.route("/recomendaciones",methods=['POST','GET'])
-def recomendaciones():
+
+# RECOMENDACIONES
+@app.route("/recomendaciones/<tipo>",methods=['POST'])
+def recomendaciones(tipo):
     if request.method=='POST':
-        data = RC.obtener_recomendaciones('genre',request.form.getlist('categoria'))
-        return render_template('dashboard/recommendations.html',result=data, categories=request.form.getlist('categoria'))
+        if tipo == 'categorias':
+            data = rCat.obtener_recomendaciones('genre',request.form.getlist('categoria'))
+            return render_template('dashboard/recommendations.html',result=data, categories=request.form.getlist('categoria'))
+        elif tipo == 'calificaciones':
+            userInput = [
+                    # {'title':'Breakfast Club, The', 'rating':5},
+                    {'title':'Toy Story', 'rating':3.5},
+                    {'title':'Jumanji', 'rating':2},
+                    {'title':"Pulp Fiction", 'rating':5},
+                    {'title':'Akira', 'rating':4.5}
+                ] 
+            data = rCal.obtener_recomendaciones(userInput)
+            return render_template('dashboard/recommendations.html',result=data)
+        else:
+            return redirect(redirect_url())
 
 if __name__ == "__main__":
     app.run(debug=True)

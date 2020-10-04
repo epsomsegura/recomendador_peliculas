@@ -31,6 +31,11 @@ pip install flask-sqlalchemy
 pip install pymysql
 ```
 
+- Bcrypt
+````
+pip install bcrypt
+```
+
 
 ## Manejador de base de datos
 - MySQL/MariaDB

@@ -1,0 +1,73 @@
+{% extends "layouts/dashboard_layout.html" %}
+{% block title %} Categorías {% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block body %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form action="{{url_for('recomendaciones',tipo='categorias')}}" method="POST" enctype="multipart/form-data">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col">
+                                <h4>Bienvenido</h4>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <h6>Selecciona tus categorías favoritas</h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <h6 id="badges_categories"></h6>
+                            </div>
+                        </div>
+                        <div class="row">
+                            {% for g in genres %}
+                            <div class="col-sm-4 col-md-4 card-item">
+                                <div class="card">
+                                    <div class="card-header bg-white">
+                                        <h6 class="card-title text-capitalize">{{ g.genre }}</h6>
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="text-center" style="padding:10px;">
+                                            <i class="fas fa-list-ul" style="font-size: 50px;"></i>
+                                        </div>
+                                    </div>
+                                    <div class="card-footer bg-white text-left">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" name="categoria"
+                                                value="{{ g.genre }}" id="{{ g.genre }}">
+                                            <label class="form-check-label" for="{{ g.genre }}">Seleccionar
+                                                categoría</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-12 d-flex justify-content-center">
+                                <div class="pagination justify-content-center"></div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col">
+                                <button class="btn btn-primary float-right btn_next" type="submit"
+                                    role="button">Continuar</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<script src="{{ url_for('static', filename='assets/js/categories.js') }}"></script>
+{% endblock %}

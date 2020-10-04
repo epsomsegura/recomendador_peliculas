@@ -8,9 +8,9 @@
 <!-- Conteo de resultados omitiendo películas -->
 {% set total = namespace(val=0) %}
 {% for r in result %}
-    {% if r.title != 0 %}
-        {% set total.val= total.val +1 %}
-    {% endif %}
+{% if r.title != 0 %}
+{% set total.val= total.val +1 %}
+{% endif %}
 {% endfor %}
 <!-- Construcción de la interfaz gráfica -->
 <div class="container">
@@ -20,9 +20,12 @@
                 <div class="card-body">
                     <div class="row">
                         <div class="col">
-                            <h4>Recomendaciones hechas para ti <span id="total">({{'0' if ((result|count == 1) and (result[0].title == 0)) else total.val }})</span></h4>
+                            <h4>Recomendaciones hechas para ti <span
+                                    id="total">({{'0' if ((result|count == 1) and (result[0].title == 0)) else total.val }})</span>
+                            </h4>
                         </div>
                     </div>
+                    {% if categories is defined %}
                     <div class="row">
                         <div class="col">
                             <h5>Categorías utilizadas:</h5>
@@ -33,6 +36,7 @@
                             </h6>
                         </div>
                     </div>
+                    {% endif %}
                     <div class="row">
                         {% if (result|count == 1) and (result[0].title == 0) %}
                         <div class="col-12 text-center">
@@ -43,7 +47,7 @@
                         {% else %}
                         {% for k in result %}
                         {% if k.title != 0 %}
-                        <div class="col-sm-4 col-md-4">
+                        <div class="col-sm-4 col-md-4 card-item">
                             <div class="card">
                                 <div class="card-header text-center bg-white">
                                     <h6 class="card-title">{{ k.title }}</h6>
@@ -62,23 +66,25 @@
                                                     <td>
                                                         <span>
                                                             Votos <br>
-                                                            <strong>{{ k.vote_average }}</strong>
+                                                            <strong>{{ k.vote_count|int }}</strong>
                                                         </span>
                                                     </td>
                                                     <td>
                                                         <span>Duración <br>
                                                             <strong>{{ (k.runtime|int) }} min</strong>
                                                         </span>
-                                                </td>
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>
                                     </span>
-                                    <img src="../../static/assets/img/movie.jpg">
+                                    <div style="display: flex;">
+                                        <img src="../../static/assets/img/movie.jpg" style="width: 40%;height: auto;margin: 5px auto;">
+                                    </div>
                                     <h6 class="text-center">
-                                        Calificación: {{'%0.2f' % k.score|float}} 
+                                        Calificación: {{'%0.2f' % k.score|float}}
                                     </h6>
-                                    
+
                                 </div>
                                 <div class="card-footer text-center bg-white">
                                     <a class="card-link" href="#">Usar esta película</a>
@@ -87,16 +93,23 @@
                         </div>
                         {% else %}
                         <script>
-                            $('#total').html(parseInt($('#total').val())-1)
+                            $('#total').html(parseInt($('#total').val()) - 1)
                         </script>
                         {% endif %}
                         {% endfor %}
                         {% endif %}
                     </div>
                     <div class="row">
+                        <div class="col-12 d-flex justify-content-center">
+                            <div class="pagination"></div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <div class="col text-right">
-                            <a class="btn btn-primary btn_next" role="button" href="{{ url_for('dashboard') }}">Salir</a>
-                            <a class="btn btn-danger btn_next" role="button" href="{{ url_for('dashboard') }}">Regresar</a>
+                            <a class="btn btn-primary btn_next" role="button"
+                                href="{{ url_for('dashboard') }}">Salir</a>
+                            <a class="btn btn-danger btn_next" role="button"
+                                href="{{ url_for('dashboard') }}">Regresar</a>
                         </div>
                     </div>
                 </div>
@@ -104,4 +117,5 @@
         </div>
     </div>
 </div>
+<script src="{{ url_for('static', filename='assets/js/categories.js') }}"></script>
 {% endblock %}
