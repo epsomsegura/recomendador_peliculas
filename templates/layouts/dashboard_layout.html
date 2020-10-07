@@ -22,10 +22,28 @@
         <script src="{{ url_for('static', filename='assets/js/jquery.dataTables.min.js') }}"></script>
         <script src="{{ url_for('static', filename='assets/js/dataTables.bootstrap4.min.js') }}"></script>
         <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
+        <script src="{{ url_for('static', filename='assets/js/lib.js') }}"></script>
     </head>
     
 
 <body>
+    <!-- LOADER -->
+    <div id="loader_container">
+        <div id="loader_center">
+            <div id="loader_spinner">
+                <div class="sk-folding-cube">
+                    <div class="sk-cube1 sk-cube"></div>
+                    <div class="sk-cube2 sk-cube"></div>
+                    <div class="sk-cube4 sk-cube"></div>
+                    <div class="sk-cube3 sk-cube"></div>
+                  </div>
+            </div>
+            <div id="loader_message">
+                Un momento, estamos preparando todo
+            </div>
+        </div>
+    </div>
+
     <nav class="navbar navbar-light navbar-expand-md navigation-clean">
         <div class="container"><a class="navbar-brand" href="{{url_for('dashboard')}}">Movies</a><button data-toggle="collapse" class="navbar-toggler" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>
             <div class="collapse navbar-collapse"

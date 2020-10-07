@@ -4,26 +4,85 @@ from math import sqrt
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+from os import path
 # %matplotlib inline
 
 
-class recomendador_calificaciones:
-    movies_data_chunk = pd.DataFrame()
-    movies_df = pd.read_csv('src/ratings/movies_metadata.csv', low_memory=False, encoding='unicode_escape')
+class ratingsController:
+    movies_df = pd.read_csv('src/ratings/movies.csv', low_memory=False, encoding='unicode_escape')
     ratings_df = pd.read_csv('src/ratings/ratings.csv', low_memory=False, encoding='unicode_escape')
-    movies_category_data = pd.read_csv('src/categories/categories_metadata.csv', low_memory=False, encoding='unicode_escape')
+    movies_category_data = pd.read_csv('src/categories/movies_metadata.csv', low_memory=False, encoding='unicode_escape')
 
     def __init__(self):
-        # Limpieza del dataframe Movies
-        # Creando la columna años
-        self.movies_df['year'] = self.movies_df.title.str.extract(r'(\d\d\d\d)',expand=False)
-        # Extraer los años de la columna de películas
-        self.movies_df['title'] = self.movies_df.title.astype(str).str.replace(r'\([^)]*\)', '').str.strip()
-        # # Eliminar la columna géneros
-        # self.movies_df = self.movies_df.drop('genres', 1)
+        # Si existe el archivo dataset se asigna el valor a la variable global
+        if(path.exists('src/ratings/movies_dataset.csv')):
+            print('EXISTE DATASET')
+            self.movies_df = pd.read_csv('src/ratings/movies_dataset.csv', low_memory=False, encoding='unicode_escape')
+            self.ratings_df = self.ratings_df.drop('timestamp',axis=1)
+        # De lo contrario, lo construye a partir de los archivos de dataset correspondientes
+        else:
+            print('NO EXISTE DATASET')
+            # Adecuando el catálogo de peliculas del recomendador por calificaciones
+            self.movies_df['year'] = self.movies_df.title.str.extract(r'(\d\d\d\d)',expand=False)
+            # Extraer los años de la columna de películas
+            self.movies_df['title'] = self.movies_df.title.astype(str).str.replace(r'\([^)]*\)', '').str.strip()
+            self.movies_df = self.movies_df.drop('genres',axis=1)
+            
+            # Adecuando los títulos de las películas en el catálodo del recomendador por calificaciones
+            for i, row in enumerate(self.movies_df['title']):
+                val = row
+                if ', The' in val:
+                    val = row.split(', ')[1]+' '+row.split(', ')[0]
+                elif ', Le' in val:
+                    val = row.split(', ')[1]+' '+row.split(', ')[0]
+                elif ', L\'' in val:
+                    val = row.split(', ')[1]+' '+row.split(', ')[0]
+                elif ', El' in val:
+                    val = row.split(', ')[1]+' '+row.split(', ')[0]
+                elif ', A' in val:
+                    val = row.split(', ')[1]+' '+row.split(', ')[0]
+                elif ', An' in val:
+                    val = row.split(', ')[1]+' '+row.split(', ')[0]
+                
+                self.movies_df.at[i,'title'] = val
 
-        # Limpieza del dataframe Ratings
-        self.ratings_df = self.ratings_df.drop('timestamp', 1)
+            print('Movies DF size: '+str(len(self.movies_df)))
+
+            # Leyendo los datos del catálogo de peliculas del recomendador por categorías
+            self.movies_category_data = self.movies_category_data[['title', 'release_date','runtime', 'vote_average', 'vote_count']]
+            self.movies_category_data['release_date'] = pd.to_datetime(self.movies_category_data['release_date'], errors='coerce')
+            self.movies_category_data = self.movies_category_data.rename(columns={'release_date':'year'})
+            print('Movies CAT size: '+str(len(self.movies_category_data)))
+
+            movies_data = self.movies_category_data[self.movies_category_data['title'].isin(self.movies_df['title'].tolist())]
+            print('Movies MOVIES_DATA size: '+str(len(movies_data)))
+
+            # Mezclando los datos del catálogo de películas del recomendador por calificaciones con los del recomendador por categorías
+            recMovies = movies_data.merge(self.movies_df, on='title',how="left").drop('year_y',axis=1)
+            recMovies[['runtime']] = recMovies[['runtime']].fillna(0)
+            recMovies = recMovies.dropna(axis=0,how='any').rename(columns={'year_x':'year'})
+
+            print('Movies MIX size: '+str(len(recMovies)))
+            
+            # Calcular el score usando la forumal de IMDB
+            C = recMovies['vote_average'].mean()
+            m = recMovies['vote_count'].quantile(0.8)
+            # recMovies = recMovies.copy().loc[recMovies['vote_count'] >= m]
+            recMovies['score'] = recMovies.apply(lambda x: (x['vote_count']/(x['vote_count']+m) * x['vote_average'])+ (m/(m+x['vote_count']) * C), axis=1)
+            recMovies = recMovies.sort_values(by=['title'])
+
+            print('Movies SCORE size: '+str(len(recMovies)))
+            
+            
+            recMovies = recMovies.drop_duplicates(subset=['title','year'])
+            print('Movies REMOVE_DUPLICATES size: '+str(len(recMovies)))
+            
+            recMovies.to_csv('src/ratings/movies_dataset.csv',index=False)
+
+            self.movies_df = pd.read_csv('src/ratings/movies_dataset.csv', low_memory=False, encoding='unicode_escape')
+            self.ratings_df = self.ratings_df.drop('timestamp',axis=1)
+
+            
 
 
     def user_input(self, userInput):
@@ -41,7 +100,6 @@ class recomendador_calificaciones:
         userSubset = self.ratings_df[self.ratings_df['movieId'].isin(inputMovies['movieId'].tolist())]
 
         userSubsetGroup = userSubset.groupby(['userId'])
-        userSubsetGroup.get_group(1130)
         userSubsetGroup = sorted(userSubsetGroup,  key=lambda x: len(x[1]), reverse=True)
         userSubsetGroup = userSubsetGroup[0:100]
 
@@ -51,6 +109,7 @@ class recomendador_calificaciones:
             #Comencemos ordenando el usuario actual y el ingresado de forma tal que los valores no se mezclen luego
             group = group.sort_values(by='movieId')
             inputMovies = inputMovies.sort_values(by='movieId')
+            inputMovies['rating'] = inputMovies['rating'].astype(float)
             #Obtener el N para la fórmula
             nRatings = len(group)
             #Obtener los puntajes de revisión para las películas en común
@@ -90,13 +149,7 @@ class recomendador_calificaciones:
         recommendation_df['movieId'] = tempTopUsersRating.index
         recommendation_df = recommendation_df.sort_values(by='weighted average recommendation score', ascending=False)
         
-        recommendation = self.movies_df.loc[self.movies_df['movieId'].isin(recommendation_df['movieId'].tolist())]
-        movies_data = self.movies_category_data[self.movies_category_data['title'].isin(recommendation['title'].tolist())]
-        movies_data = movies_data.dropna(axis=0,how='any')
-        recMovies = pd.concat([movies_data, recommendation],axis=0)
-        recMovies = recMovies.drop('movieId',axis=1)
-        recMovies = recMovies.dropna(axis=0,how='any')
-        recMovies = recMovies.drop_duplicates(subset=['title'])
+        recMovies = self.movies_df.loc[self.movies_df['movieId'].isin(recommendation_df['movieId'].tolist())]
 
         # Aleatorios
         rndm_count = int(random.uniform(1,120))
@@ -115,17 +168,7 @@ class recomendador_calificaciones:
 
         recMovies = recMovies[start:end]
 
-        # SCORES
-        C = recMovies['vote_average'].mean()
-        m = recMovies['vote_count'].quantile(percentile)
-        recMovies = recMovies.copy().loc[recMovies['vote_count'] >= m]
-        
-        # Calcular el score usando la forumal de IMDB
-        recMovies['score'] = recMovies.apply(lambda x: (x['vote_count']/(x['vote_count']+m) * x['vote_average'])+ (m/(m+x['vote_count']) * C), axis=1)
-
-
-        print('\n\nRespuesta')
-        return recMovies.sort_values('score',ascending=False).to_dict('records')
+        return recMovies.drop('movieId',axis=1).to_dict('records')
 
 if __name__ == "__main__":
     dt = recomendador_calificaciones()

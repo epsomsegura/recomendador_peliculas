@@ -36,6 +36,17 @@
                             </h6>
                         </div>
                     </div>
+                    {% elif movies is defined %}
+                    <div class="row">
+                        <div class="col">
+                            <h5>Películas calificadas:</h5>
+                            <h6>
+                                {% for i in movies %}
+                                <span class="badge badge-secondary text-capitalize">{{i.title}} <span class="badge badge-light">{{i.rating}}</span></span>
+                                {% endfor %}
+                            </h6>
+                        </div>
+                    </div>
                     {% endif %}
                     <div class="row">
                         {% if (result|count == 1) and (result[0].title == 0) %}

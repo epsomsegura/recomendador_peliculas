@@ -4,6 +4,27 @@
 {{ super() }}
 {% endblock %}
 {% block body %}
+<!-- MODAL -->
+<div class="modal" id="mdl_calificaciones" tabindex="-1" role="dialog">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Califica las películas que ya viste</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" >
+                <form action="{{ url_for('recomendaciones',tipo='calificaciones') }}" id="rating_form" method="POST" enctype="multipart/form-data"></form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" id="btn_send_data" class="btn btn-primary">Recomendaciones</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- CONTENIDO -->
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -18,7 +39,10 @@
                         <div class="col-12">
                             <h6 id="badges_titles"></h6>
                         </div>
-                    </div>           
+                        <div class="col-12 text-right">
+                            <button disabled class="btn btn-primary" id="btn_show_modal" data-target="#mdl_calificaciones" data-toggle="modal">Calificaciones</button>
+                        </div>
+                    </div>
                     <div class="row">
                         <div class="col-12">
                             <div class="table-responsive">
@@ -34,7 +58,8 @@
                                         {% for v in result %}
                                         <tr>
                                             <td class="text-center">
-                                                <input type="checkbox" name="title" data-title="{{ v.title }}" id="title_{{loop.index}}">
+                                                <input type="checkbox" name="title" data-title="{{ v.title }}"
+                                                    data-id="title_{{ loop.index }}" id="title_{{loop.index}}">
                                             </td>
                                             <td>{{ v.title }}</td>
                                             <td class="text-right">{{ (v.vote_count|int) }}</td>
@@ -48,12 +73,9 @@
 
                     <div class="row">
                         <div class="col">
-                            <form action="{{url_for('recomendaciones', tipo='calificaciones')}}" method="POST" enctype="multipart/form-data">
-                                <button type="submit" class="btn btn-primary">Continuar</button>
-                            </form>
                             <a class="btn btn-danger float-right btn_next" role="button"
-                                href="{{ url_for('dashboard') }}">Salir</a>
-                            </div>
+                                href="{{ url_for('calificaciones') }}">Salir</a>
+                        </div>
                     </div>
                 </div>
             </div>
