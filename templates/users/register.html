@@ -19,40 +19,24 @@
             </div>
             {% endif %}
             <div class="form-group">
-                <input class="form-control" type="email" name="email" placeholder="Email">
+                <input class="form-control" type="email" name="email" placeholder="Email" required>
             </div>
             <div class="form-group">
-                <input class="form-control" type="text" name="username" placeholder="Usuario">
+                <input class="form-control" type="text" name="username" placeholder="Usuario" required>
             </div>
             <div class="form-group">
-                <input class="form-control" type="password" name="password"placeholder="Ingrese la contraseña">
+                <input class="form-control" type="text" name="city" placeholder="Ciudad" required>
             </div>
             <div class="form-group">
-                <input class="form-control" type="password" name="password2" placeholder="Repita la contraseña">
+                <input class="form-control" type="password" name="password"placeholder="Ingrese la contraseña" required>
             </div>
             <div class="form-group">
-                <input class="form-control" type="text" name="city" placeholder="Ciudad">
-            </div>
-            <div class="form-group">
-                <script src='https://www.google.com/recaptcha/api.js'></script>
-
-
-                <style>
-                    #g-recaptcha-response {
-                        display: block !important;
-                        position: absolute;
-                        margin: -78px 0 0 0 !important;
-                        width: 302px !important;
-                        height: 76px !important;
-                        z-index: -999999;
-                        opacity: 0;
-                    }
-                </style>
+                <input class="form-control" type="password" name="password2" placeholder="Repita la contraseña" required>
             </div>
             <div class="form-group">
                 <div class="form-check">
                     <label class="form-check-label">
-                        <input class="form-check-input" name="terms" type="checkbox" value="1">Acepto los términos de uso y las políticas de privacidad
+                        <input class="form-check-input" name="terms" type="checkbox" value="1" required>Acepto los términos de uso y las políticas de privacidad
                     </label>
                 </div>
             </div>

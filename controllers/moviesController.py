@@ -5,7 +5,7 @@ from os import path
 # CLASE CONTROLADOR DE PELÍCULAS
 class moviesController:
     # VARIABLES PRINCIPALES
-    movies_data = None
+    movies_list = None
     movies_df = pd.read_csv('src/ratings/movies.csv', low_memory=False, encoding='unicode_escape')
     movies_category_data = pd.read_csv('src/categories/categories_metadata.csv', low_memory=False, encoding='unicode_escape')
 
@@ -13,7 +13,7 @@ class moviesController:
     def __init__(self):
         # Si existe el archivo dataset se asigna el valor a la variable global
         if(path.exists('src/ratings/movies_dataset.csv')):
-            self.movies_df = pd.read_csv('src/ratings/movies_dataset.csv', low_memory=False, encoding='unicode_escape')
+            self.movies_list = pd.read_csv('src/ratings/movies_dataset.csv', low_memory=False, encoding='unicode_escape')
         # De lo contrario, lo construye a partir de los archivos de dataset correspondientes
         else:
             # Adecuando el catálogo de peliculas del recomendador por calificaciones
@@ -59,9 +59,9 @@ class moviesController:
             
             recMovies.to_csv('src/ratings/movies_dataset.csv',index=False)
 
-            self.movies_df = pd.read_csv('src/ratings/movies_dataset.csv', low_memory=False, encoding='unicode_escape')
+            self.movies_list = pd.read_csv('src/ratings/movies_dataset.csv', low_memory=False, encoding='unicode_escape')
             
-    
+    # Obtiene la lista de las películas
     def getAll(self):
         recMovies = pd.read_csv('src/ratings/movies_dataset.csv', low_memory=False, encoding='unicode_escape')
         return recMovies.sort_values('year',ascending=False).to_dict('records')

@@ -78,7 +78,6 @@ class categoriesController:
                 q_movies['score'] = q_movies.apply(lambda x: (x['vote_count']/(x['vote_count']+m) * x['vote_average'])+ (m/(m+x['vote_count']) * C), axis=1)
                 
                 # SELECCIÓN DE ALEATORIOS PARA LA RECOMENDACIÓN
-
                 rndm_count = int(random.uniform(1,40))
                 rndm=int(random.uniform(1,len(q_movies)))
                 start = 1 

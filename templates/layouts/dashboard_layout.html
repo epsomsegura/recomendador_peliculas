@@ -49,12 +49,14 @@
             <div class="collapse navbar-collapse"
                 id="navcol-1">
                 <ul class="nav navbar-nav ml-auto">
-                    <li class="nav-item"><a class="nav-link" href="{{url_for('categorias')}}">Categorías</a></li>
-                    <li class="nav-item"><a class="nav-link" href="{{url_for('calificaciones')}}">Calificaciones</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('categorias')}}"><i class="fas fa-tasks"></i> Categorías</a></li>
+                    <li class="nav-item"><a class="nav-link" href="{{url_for('calificaciones')}}"><i class="fas fa-eye"></i> Calificaciones</a></li>
                     <li class="nav-item"></li>
-                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">Usuario&nbsp;</a>
-                        <div class="dropdown-menu"><a class="dropdown-item" href="#">Mi perfil</a>
-                            <a class="dropdown-item" href="{{url_for('logout')}}">Cerrar sesión</a></div>
+                    <li class="nav-item dropdown"><a class="dropdown-toggle nav-link" data-toggle="dropdown" aria-expanded="false" href="#">
+                        <i class="fas fa-user-cog"></i> {{session.get('user').username}}
+                    </a>
+                        <div class="dropdown-menu"><a class="dropdown-item" href="{{ url_for('perfil') }}"><i class="fas fa-user"></i> Mi perfil</a>
+                            <a class="dropdown-item" href="{{url_for('logout')}}"><i class="fas fa-sign-out-alt"></i> Cerrar sesión</a></div>
                     </li>
                 </ul>
             </div>

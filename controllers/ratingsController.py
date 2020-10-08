@@ -5,7 +5,6 @@ import numpy as np
 import matplotlib.pyplot as plt
 import random
 from os import path
-# %matplotlib inline
 
 
 class ratingsController:
@@ -16,12 +15,12 @@ class ratingsController:
     def __init__(self):
         # Si existe el archivo dataset se asigna el valor a la variable global
         if(path.exists('src/ratings/movies_dataset.csv')):
-            print('EXISTE DATASET')
+            # print('EXISTE DATASET')
             self.movies_df = pd.read_csv('src/ratings/movies_dataset.csv', low_memory=False, encoding='unicode_escape')
             self.ratings_df = self.ratings_df.drop('timestamp',axis=1)
         # De lo contrario, lo construye a partir de los archivos de dataset correspondientes
         else:
-            print('NO EXISTE DATASET')
+            # print('NO EXISTE DATASET')
             # Adecuando el catálogo de peliculas del recomendador por calificaciones
             self.movies_df['year'] = self.movies_df.title.str.extract(r'(\d\d\d\d)',expand=False)
             # Extraer los años de la columna de películas
