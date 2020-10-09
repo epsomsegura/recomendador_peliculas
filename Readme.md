@@ -68,7 +68,6 @@ pip install bcrypt
     - `assets/img`: Almacena las imágenes utilizadas para dar vista a distintas secciones de este proyecto
     - `assets/js`:  Almacena los archivos JS utilizados para la funcionalidad de este proyecto
 - `templates`: Almacena los archivos correspondientes a la construcción de la vista que se presenta al usuario, se almacenan los distintos <i>layouts</i> y <i>ventanas</i> utilizados en este proyecto
-    - `index.html`: Archivo de la vista de inicio de sesión
     - `dashboard`: Almacena los archivos de las vistas de la aplicación.
         - `categories.html`: Vista parcial del `catálogo de categorías` obtenido desde el controlador `categoriesController`. Se encarga de ejecutar la petición de las `recomendaciones por categoría`.
         - `dashboard.html`: Vista parcial de la ventana de bienvenida a la aplicación.
@@ -81,7 +80,8 @@ pip install bcrypt
         - `password_recovery.html`: Vista parcial para la reasignación de contraseña de un usaurio.
         - `profile.html`: Vista parcial para la edición de datos del usuario activo.
         - `register.html`: Vista parcial para el registro de nuevos usuarios.
-    - `main.py`: Archivo principal para la ejecución de la aplicación.
+    - `index.html`: Archivo de la vista de inicio de sesión
+- `main.py`: Archivo principal para la ejecución de la aplicación.
 
 ## Notas
 - El archivo CSV `movies_metadata.csv` fue modificado en la columna `release_date` desde Microsoft Excel para asignar el año a cuatro dígitos en lugar de dos dígitos para su posterior tratamiento.
