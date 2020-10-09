@@ -1,5 +1,7 @@
+# DEPENDENCIA DE INICIO DE ORM
 from models.database import db
 
+# MODELO 'Genres'
 class Genres(db.Model):
     __tablename__ = 'genres'
 

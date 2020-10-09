@@ -69,4 +69,3 @@ class moviesController:
 
 if __name__ == '__main__':
     x = moviesController()
-    print(x.getAll())

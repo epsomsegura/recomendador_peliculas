@@ -1,9 +1,12 @@
+<!-- SE EXTIENDE DESDE LA PLANTILLA 'layouts/dashboard_layout.html' -->
 {% extends "layouts/dashboard_layout.html" %}
 {% block title %} Categorías {% endblock %}
 {% block head %}
 {{ super() }}
 {% endblock %}
 {% block body %}
+
+<!-- VISTA PARCIAL DE LA VENTANA DE CATEGORIAS -->
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -69,5 +72,7 @@
         </div>
     </div>
 </div>
+
+<!-- SCRIPTS DE LA VISTA PARCIAL -->
 <script src="{{ url_for('static', filename='assets/js/categories.js') }}"></script>
 {% endblock %}

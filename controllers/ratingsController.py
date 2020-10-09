@@ -150,7 +150,7 @@ class ratingsController:
         
         recMovies = self.movies_df.loc[self.movies_df['movieId'].isin(recommendation_df['movieId'].tolist())]
 
-        # Aleatorios
+        # SELECCIÓN DE ALEATORIOS PARA LA RECOMENDACIÓN
         rndm_count = int(random.uniform(1,120))
         rndm=int(random.uniform(1,len(recMovies)))
         start = 1 
@@ -171,11 +171,4 @@ class ratingsController:
 
 if __name__ == "__main__":
     dt = recomendador_calificaciones()
-    userInput = [
-                    # {'title':'Breakfast Club, The', 'rating':5},
-                    {'title':'Toy Story', 'rating':3.5},
-                    {'title':'Jumanji', 'rating':2},
-                    {'title':"Pulp Fiction", 'rating':5},
-                    {'title':'Akira', 'rating':4.5}
-                ] 
-    print(dt.obtener_recomendaciones(userInput))
+    

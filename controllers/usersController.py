@@ -113,7 +113,7 @@ class usersController:
             # Si el usuario no existe
             elif(len(user_login)==0):
                 return {'response':'NOUSER'}
-            # Si el usuario existe
+            # Si el usuario existe actualiza la contraseña
             elif(len(user_login)==1):
                 user_data = user_login[0]
                 new_pass = ''.join(random.choice(string.ascii_uppercase + string.ascii_lowercase + string.digits) for _ in range(16))

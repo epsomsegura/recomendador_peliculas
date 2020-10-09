@@ -1,3 +1,4 @@
+<!-- SE EXTIENDE DESDE LA PLANTILLA 'layouts/dashboard_layout.html' -->
 {% extends "layouts/dashboard_layout.html" %}
 {% block title %} Recomendaciones {% endblock %}
 {% block head %}
@@ -12,7 +13,8 @@
 {% set total.val= total.val +1 %}
 {% endif %}
 {% endfor %}
-<!-- Construcción de la interfaz gráfica -->
+
+<!-- VISTA PARCIAL DE LA VENTANA RECOMENDACIONES -->
 <div class="container">
     <div class="row">
         <div class="col-md-12">
@@ -128,5 +130,7 @@
         </div>
     </div>
 </div>
+
+<!-- SCRIPTS DE LA VISTA PARCIAL -->
 <script src="{{ url_for('static', filename='assets/js/categories.js') }}"></script>
 {% endblock %}

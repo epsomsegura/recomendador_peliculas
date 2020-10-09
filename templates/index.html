@@ -1,9 +1,12 @@
+<!-- SE EXTIENDE DESDE LA PLANTILLA 'layouts/login_layout.html' -->
 {% extends "layouts/login_layout.html" %}
 {% block title %} Iniciar sesión {% endblock %}
 {% block head %}
 {{ super() }}
 {% endblock %}
 {% block body %}
+
+<!-- VISTA PARCIAL PARA LA VENTANA DE INICIO DE SESIÓN -->
 <div class="login-clean" style="background: url('/static/assets/img/bckgrnd.jpg') center / cover no-repeat;opacity: 1;">
     <form id="frm_login" action="{{url_for('index')}}" method="POST">
         <h2 class="sr-only">Iniciar sesión</h2>

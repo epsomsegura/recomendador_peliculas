@@ -1,24 +1,30 @@
-<!-- LAYOUT -->
+<!--  
+    PLANTILLA PARA LA VENTANA DE INICIO DE SESIÓN
+ -->
 <!DOCTYPE html>
 <html>
-
 <head>
+    <!-- BLOQUE DE LA CABECERA -->
     {% block head %}
     <title>{% block title %}{% endblock %}</title>
     {% endblock %}
+    <!-- METAS DEL DOCUMENTO -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <!-- HOJAS DE ESTILO DEL DOCUMENTO -->
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/bootstrap/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/fonts/fontawesome-all.min.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Login-Form-Clean.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Navigation-Clean.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/Registration-Form-with-Photo.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='assets/css/styles.css') }}">
+    <!-- SCRIPTS DEL DOCUMENTO -->
     <script src="{{ url_for('static', filename='assets/js/jquery.min.js') }}"></script>
     <script src="{{ url_for('static', filename='assets/bootstrap/js/bootstrap.min.js') }}"></script>
 </head>
 
 <body>
+    <!-- BLOQUE DEL CUERPO DEL DOCUMENTO (VISTAS PARCIALES) -->
     {% block body %}{% endblock %}
 </body>
 

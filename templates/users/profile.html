@@ -1,9 +1,12 @@
-{% extends "layouts/login_layout.html" %}
+<!-- SE EXTIENDE DESDE LA PLANTILLA 'layouts/dashboard_layout.html' -->
+{% extends "layouts/dashboard_layout.html" %}
 {% block title %} Mi perfil {% endblock %}
 {% block head %}
 {{ super() }}
 {% endblock %}
 {% block body %}
+
+<!-- VISTA PARCIAL PARA LA VENTANA PERFIL -->
 <div class="register-photo">
     <div class="form-container">
         <div class="image-holder"
@@ -50,6 +53,8 @@
         </form>
     </div>
 </div>
+
+<!-- SCRIPTS DE LA VISTA PARCIAL -->
 <script>
     $('#chk_pass').on('change',function(){
         if($(this).is(':checked')){

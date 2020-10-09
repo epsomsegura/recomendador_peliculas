@@ -23,9 +23,15 @@ from controllers.moviesController import moviesController as mC
 from controllers.categoriesController import categoriesController as catC
 from controllers.ratingsController import ratingsController as ratC
 
+
+
+
 # INSTANCIAS A CONTROLADORES ESPECIALES
 catC=catC()     #   CONTROLADOR DE RECOMENDACIONES POR CATEGORÍAS
 ratC=ratC()     #   CONTROLADOR DE RECOMENDACIONES POR CALIFICACIONES
+
+
+
 
 # RUTAS PARA LA APLICACIÓN WEB
 # RUTA PARA INICIAR SESIÓN
@@ -53,6 +59,12 @@ def index():
         else:
             return redirect(url_for('.index', alert="Error desconocido"))
 
+# RUTA PARA CERRAR SESIÓN
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect(url_for('index'))
+
 # RUTA PARA RECUPERAR LA CONTRASEÑA EN CASO DE QUE EL USUARIO LA OLVIDE, SE CREA UNA CONTRASEÑA ALEATORIA PARA INICIAR SESIÓN Y SE SOLICITA QUE SE CAMBIE AL INGRESAR A LA APLICACIÓN
 @app.route('/recuperar_password',methods=['POST','GET'])
 def recuperar_password():
@@ -63,32 +75,6 @@ def recuperar_password():
     elif(request.method == 'POST'):
         pass_recovery = uC.pass_recovery(app,request.form.to_dict())
         return jsonify(pass_recovery)
-
-# RUTA PARA EDITAR LOS DATOS DEL PERFIL ACTIVO
-@app.route('/perfil',methods=['GET','POST'])
-def perfil():
-    # SI LA APLICACIÓN TIENE SESIÓN REDIRECCIONA A LA VENTANA PRINCIPAL
-    if(session.get('user') != None):
-        if(request.method=='GET'):
-            user_data = session.get('user')
-            return render_template("users/profile.html",user_data=user_data)
-        elif(request.method=='POST'):
-            update_user = uC.update_user(app,request.form.to_dict())
-            if(update_user['response']=='PASSWORD'):
-                return redirect(url_for('perfil', alert="La contraseña es incorrecta"))
-            elif(update_user['response']=='OK'):
-                return redirect(url_for('dashboard'))
-            else:
-                return redirect(url_for('perfil', alert="Error desconocido"))
-    # SI LA APLICACIÓN NO TIENE SESIÓN REDIRECCIONA A LA VENTANA DE INICIO DE SESIÓN
-    else:
-        return redirect(url_for('index'))
-
-# RUTA PARA CERRAR SESIÓN
-@app.route("/logout")
-def logout():
-    session.clear()
-    return redirect(url_for('index'))
 
 # RUTA PARA REGISTRAR UN NUEVO USUARIO PARA INTERACTUAR CON EL SISTEMA
 @app.route("/registro", methods=['GET','POST'])
@@ -105,6 +91,27 @@ def registro():
         else:
             return redirect(url_for('.registro', alert=registration['message']))
 
+# RUTA PARA EDITAR LOS DATOS DEL PERFIL ACTIVO
+@app.route('/perfil',methods=['GET','POST'])
+def perfil():
+    # SI LA APLICACIÓN TIENE SESIÓN REDIRECCIONA A LA VENTANA PRINCIPAL
+    if(session.get('user') != None):
+        # RETORNA LA VISTA DEL PERFIL DEL USUARIO
+        if(request.method=='GET'):
+            user_data = session.get('user')
+            return render_template("users/profile.html",user_data=user_data)
+        # RECIBE LA PETICIÓN PARA ACTUALIZAR LOS DATOS DEL USUARIO ACTIVO
+        elif(request.method=='POST'):
+            update_user = uC.update_user(app,request.form.to_dict())
+            if(update_user['response']=='PASSWORD'):
+                return redirect(url_for('perfil', alert="La contraseña es incorrecta"))
+            elif(update_user['response']=='OK'):
+                return redirect(url_for('dashboard'))
+            else:
+                return redirect(url_for('perfil', alert="Error desconocido"))
+    # SI LA APLICACIÓN NO TIENE SESIÓN REDIRECCIONA A LA VENTANA DE INICIO DE SESIÓN
+    else:
+        return redirect(url_for('index'))
 
 
 
@@ -148,7 +155,7 @@ def calificaciones():
         # SI LA APLICACIÓN NO TIENE SESIÓN REDIRECCIONA A LA VENTANA DE INICIO DE SESIÓN
         else:
             return redirect(url_for('index'))
-        
+      
 
 
 
@@ -195,6 +202,7 @@ def recomendaciones(tipo):
         # SI LA APLICACIÓN NO TIENE SESIÓN REDIRECCIONA A LA VENTANA PRINCIPAL
         else:
             return redirect(url_for('index'))
+
 
 
 

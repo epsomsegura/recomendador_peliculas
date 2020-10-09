@@ -1,9 +1,12 @@
+<!-- SE EXTIENDE DESDE LA PLANTILLA 'layouts/dashboard_layout.html' -->
 {% extends "layouts/login_layout.html" %}
 {% block title %} Registro {% endblock %}
 {% block head %}
 {{ super() }}
 {% endblock %}
 {% block body %}
+
+<!-- VISTA PARCIAL PARA LA VENTANA REGISTRO -->
 <div class="register-photo">
     <div class="form-container">
         <div class="image-holder"
@@ -47,13 +50,4 @@
         </form>
     </div>
 </div>
-<script>
-    window.onload = function () {
-        var $recaptcha = document.querySelector('#g-recaptcha-response');
-
-        if ($recaptcha) {
-            $recaptcha.setAttribute("required", "required");
-        }
-    };
-</script>
 {% endblock %}
