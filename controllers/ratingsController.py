@@ -66,7 +66,7 @@ class ratingsController:
             # Calcular el score usando la forumal de IMDB
             C = recMovies['vote_average'].mean()
             m = recMovies['vote_count'].quantile(0.8)
-            # recMovies = recMovies.copy().loc[recMovies['vote_count'] >= m]
+            recMovies = recMovies.copy().loc[recMovies['vote_count'] >= m]
             recMovies['score'] = recMovies.apply(lambda x: (x['vote_count']/(x['vote_count']+m) * x['vote_average'])+ (m/(m+x['vote_count']) * C), axis=1)
             recMovies = recMovies.sort_values(by=['title'])
 
@@ -113,14 +113,24 @@ class ratingsController:
             nRatings = len(group)
             #Obtener los puntajes de revisión para las películas en común
             temp_df = inputMovies[inputMovies['movieId'].isin(group['movieId'].tolist())]
+            print('\ntemp_df:')
+            print(temp_df)
             #Guardarlas en una variable temporal con formato de lista para facilitar cálculos futuros
             tempRatingList = temp_df['rating'].tolist()
+            print('\ntempRatingList:')
+            print(tempRatingList)
             #Pongamos también las revisiones de grupos de usuarios en una lista
             tempGroupList = group['rating'].tolist()
+            print('\ntempGroupList:')
+            print(tempGroupList)
             #Calculemos la Correlación Pearson entre dos usuarios, x e y
             Sxx = sum([i**2 for i in tempRatingList]) - pow(sum(tempRatingList),2)/float(nRatings)
             Syy = sum([i**2 for i in tempGroupList]) - pow(sum(tempGroupList),2)/float(nRatings)
             Sxy = sum( i*j for i, j in zip(tempRatingList, tempGroupList)) - sum(tempRatingList)*sum(tempGroupList)/float(nRatings)
+
+            print('\nDATOS XY:')
+            print(str(Sxx)+' '+str(Syy)+' '+str(Sxy))
+            print('\n\n')
 
             #Si el denominador es diferente a cero, entonces dividir, sino, la correlación es 0.
             if Sxx != 0 and Syy != 0:
@@ -170,5 +180,5 @@ class ratingsController:
         return recMovies.drop('movieId',axis=1).to_dict('records')
 
 if __name__ == "__main__":
-    dt = recomendador_calificaciones()
+    dt = ratingsController()
     
