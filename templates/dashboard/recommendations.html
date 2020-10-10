@@ -73,7 +73,13 @@
                                                     <td>
                                                         <span>
                                                             Año <br>
-                                                            <strong>{{ (k.year)|int }}</strong>
+                                                            <strong>
+                                                                {% if k.year|int(-1) != -1 %}    
+                                                                {{ (k.year)|int }}
+                                                                {% else %}
+                                                                {{ (k.year.split('-')[0])|int }}
+                                                                {% endif %}
+                                                            </strong>
                                                         </span>
                                                     </td>
                                                     <td>

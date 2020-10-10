@@ -21,6 +21,11 @@
             <strong><small class="text-danger">* Atención: {{ alert }}</small></strong>
         </div>
         {% endif %}
+        {% if message %}
+        <div>
+            <strong><small class="text-success">* Mensaje: {{ message }}</small></strong>
+        </div>
+        {% endif %}
         <div class="form-group">
             <input class="form-control" type="email" name="email" placeholder="Correo electrónico">
         </div>

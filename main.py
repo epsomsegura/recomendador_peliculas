@@ -40,7 +40,8 @@ def index():
     # RETORNA LA VISTA DE INICIO DE SESIÓN
     if(request.method == 'GET'):
         alert = request.args.get('alert')
-        return render_template("index.html",alert=alert)
+        message = request.args.get('message')
+        return render_template("index.html", alert=alert, message=message)
     # RECIBE LA PETICIÓN PARA INICIO DE SESIÓN
     elif(request.method=='POST'):
         # EJECUTA LA FUNCIÓN DE INICIO DE SESIÓN DESDE EL CONTROLADOR 'USUARIOS'
@@ -87,9 +88,9 @@ def registro():
     elif(request.method == 'POST'):
         registration = uC.registration(app,request.form.to_dict())
         if(registration['response']=='OK'):
-            return redirect(url_for('.index',message="Usuario creado con éxito"))
+            return redirect(url_for('index',message="Usuario creado con éxito, ahora inicie sesión para utilizar los recomendadores"))
         else:
-            return redirect(url_for('.registro', alert=registration['message']))
+            return redirect(url_for('registro', alert=registration['message']))
 
 # RUTA PARA EDITAR LOS DATOS DEL PERFIL ACTIVO
 @app.route('/perfil',methods=['GET','POST'])

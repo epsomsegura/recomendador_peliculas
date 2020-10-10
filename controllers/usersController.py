@@ -49,7 +49,7 @@ class usersController:
         else:
             # Ejecuta una transacción para registrar al nuevo usuario y hace el commit
             try:
-                new_user = U(None,data['username'],data['email'],password,data['city'],terms,created_at,None)
+                new_user = U(None,data['name'],data['username'],data['email'],password,terms,created_at,None)
 
                 db.session.add(new_user)
                 db.session.commit()
@@ -70,9 +70,9 @@ class usersController:
     def update_user(self,data):
         # Variables para la edición de un usuario
         user_data = U.query.filter_by(email=data['email']).first()
+        user_data.name = data['name']
         user_data.email = data['email']
         user_data.username = data['username']
-        user_data.city = data['city']
         user_data.updated_at = datetime.now()
         try:
             # Se verifica cambio en las contraseñas
