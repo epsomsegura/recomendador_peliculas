@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: localhost
--- Tiempo de generación: 30-09-2020 a las 00:38:54
+-- Tiempo de generación: 10-10-2020 a las 18:14:55
 -- Versión del servidor: 10.4.11-MariaDB
 -- Versión de PHP: 7.4.6
 
@@ -29,6 +29,7 @@ USE `movies`;
 -- Estructura de tabla para la tabla `genres`
 --
 
+DROP TABLE IF EXISTS `genres`;
 CREATE TABLE `genres` (
   `id` int(11) NOT NULL,
   `genre` varchar(255) NOT NULL
@@ -82,12 +83,13 @@ INSERT INTO `genres` (`id`, `genre`) VALUES
 -- Estructura de tabla para la tabla `users`
 --
 
+DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL,
   `username` varchar(250) NOT NULL,
   `email` varchar(100) NOT NULL,
   `password` text NOT NULL,
-  `city` varchar(100) NOT NULL,
   `terms` tinyint(1) DEFAULT NULL,
   `created_at` datetime NOT NULL,
   `updated_at` datetime DEFAULT NULL
@@ -102,9 +104,10 @@ TRUNCATE TABLE `users`;
 -- Volcado de datos para la tabla `users`
 --
 
-INSERT INTO `users` (`id`, `username`, `email`, `password`, `city`, `terms`, `created_at`, `updated_at`) VALUES
-(1, 'test', 'test@test.com', '$2b$12$vgIrCT3jouChPjhOUtfkhOs3fFXwzItyOHLQVlmZEB2MtYuZcpLL.', 'Xalapa Ver', 1, '2020-09-24 17:25:15', NULL),
-(2, 'test2', 'test2@test.com', '$2b$12$QcxBY5SZmvxypW7N8wD8Z.MtcaHnj1qDGrm4sohkXMpkCOq4Ua.k.', 'Xalapa Ver', 0, '2020-09-27 15:24:26', NULL);
+INSERT INTO `users` (`id`, `name`, `username`, `email`, `password`, `terms`, `created_at`, `updated_at`) VALUES
+(1, 'Tester 1', 'test1', 'test1@test.com', '$2b$12$HFbg0.q0wkfQ5dEWfARDEedN9iA3VwdKSE02aJ/efkbBpEzmn..NK', 0, '2020-10-10 10:54:51', NULL),
+(2, 'Tester 2', 'test2', 'test2@test.com', '$2b$12$ky7CHLr2HanPxHsJPwZrT.i6BQXwIRN6CL/06Rj.sziRZ0KWRMPOy', 0, '2020-10-10 10:56:28', NULL),
+(3, 'Tester 3', 'test3', 'test3@test.com', '$2b$12$bNF1hbYb0NWT2aOB4.YGceA/Jbl6O1eGKq9YA4yHqYSurwSk/qrEG', 0, '2020-10-10 10:58:44', NULL);
 
 --
 -- Índices para tablas volcadas
@@ -137,7 +140,7 @@ ALTER TABLE `genres`
 -- AUTO_INCREMENT de la tabla `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
