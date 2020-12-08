@@ -177,7 +177,7 @@ class ratingsController:
 
         recMovies = recMovies[start:end]
 
-        return recMovies.drop('movieId',axis=1).drop_duplicates(subset='title').head(10).to_dict('records')
+        return recMovies.drop('movieId',axis=1).drop_duplicates(subset='title').head(12).to_dict('records')
 
 if __name__ == "__main__":
     dt = ratingsController()

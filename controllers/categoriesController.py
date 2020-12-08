@@ -106,7 +106,7 @@ class categoriesController:
         movies_list = movies_list.drop_duplicates(subset=['title'])
         
         # RETORNA LA LISTA ORDENADA POR LA COLUMNA 'score' EN FORMA DE DICCIONARIO (SOLO LOS REGISTROS)
-        return movies_list.sort_values('score',ascending=False).head(10).to_dict('records')
+        return movies_list.sort_values('score',ascending=False).head(12).to_dict('records')
 
     # Función de apoyo al tratamiento de fechas en el dataframe
     # FUNCIÖN DE APOYO AL TRATAMIENTO DE LAS FECHAS DEL DATAFRAME
