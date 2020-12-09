@@ -2,7 +2,7 @@ $(document).ready(function () {
     var items = $(".card-item");
 
     var numItems = items.length;
-    var perPage = 12;
+    var perPage = 10;
     items.slice(perPage).hide();
 
     $('.pagination').pagination({
